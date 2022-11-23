@@ -1,0 +1,11 @@
+framework module wkwvfw {
+  umbrella header "wkwvfw.h"
+
+  export *
+  module * { export * }
+}
+
+module wkwvfw.Swift {
+  header "wkwvfw-Swift.h"
+  requires objc
+}
