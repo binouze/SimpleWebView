@@ -100,7 +100,7 @@ namespace com.binouze
                 }
             }	
             #elif UNITY_IOS && !UNITY_EDITOR
-            _instance.OnApplicationFocus( false );
+            OnApplicationFocused( false );
             WK_openFrame(url);
             #endif
         }
@@ -187,7 +187,7 @@ namespace com.binouze
         public void OnPopupClosed()
         {
             Log( "OnPopupClosed" );
-            OnApplicationFocus( true );
+            OnApplicationFocused( true );
         }
 
         private static string DatasReceived;
@@ -205,7 +205,14 @@ namespace com.binouze
             
         }
 
+        #if UNITY_ANDROID
         private void OnApplicationFocus( bool hasFocus )
+        {
+            OnApplicationFocused( hasFocus );
+        }
+        #endif
+
+        private static void OnApplicationFocused( bool hasFocus )
         {
             Log( $"OnApplicationFocus hasFocus:{hasFocus} HasWebView:{HasWebView} HasWebViewFocus:{HasWebViewFocus}" );
             if( !hasFocus && HasWebView )
