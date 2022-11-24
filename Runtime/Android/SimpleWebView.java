@@ -27,14 +27,14 @@ public class SimpleWebView
         }
 	}
 	
-	/*public static void CloseWebView()
+	public static void CloseWebView()
     {
         PackageManager pm = UnityPlayer.currentActivity.getPackageManager();
         Intent intent     = pm.getLaunchIntentForPackage(UnityPlayer.currentActivity.getPackageName());
         
         if( intent != null )
             UnityPlayer.currentActivity.startActivity(intent);
-    }*/
+    }
 	
 	public static void LaunchApp( String packageName, String referrer )
     {

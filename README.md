@@ -30,7 +30,7 @@ this repository and put it in the `Assets/Plugins` folder of your project.
         SimpleWebView.OpenWebView( url );
         
         // opens an url and know when is it closed
-        SimpleWebView.OpenWebView( url, () => {
+        SimpleWebView.OpenWebView( url, _ => {
             Debug.Log("my webview has been closed"); 
         });
         

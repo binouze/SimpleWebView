@@ -10,9 +10,8 @@ namespace com.binouze
 {
     public class SimpleWebView : MonoBehaviour
     {
-        private static  Action         PopupClosed;
-        private static  Action         PopupClosedWait;
-        private static  Action<string> PopupData;
+        private static  Action<string> PopupClosed;
+        private static  Action<string> PopupClosedWait;
 
         private static bool   LogEnabled;
         private static bool   HasWebView;
@@ -45,40 +44,8 @@ namespace com.binouze
             LogEnabled = enabled;
         }
 
-        /// <summary>
-        /// Open a webview
-        /// </summary>
-        /// <param name="url"></param>
         [UsedImplicitly]
-        public static void OpenWebView( string url )
-        {
-            OpenWebView( url, null, null );
-        }
-        
-        /// <summary>
-        /// Open a webview
-        /// </summary>
-        /// <param name="url"></param>
-        /// <param name="OnClosed"></param>
-        [UsedImplicitly]
-        public static void OpenWebView( string url, Action OnClosed )
-        {
-            OpenWebView( url, OnClosed, null );
-        }
-        
-        /// <summary>
-        /// Open a webview
-        /// </summary>
-        /// <param name="url"></param>
-        /// <param name="OnClosedWithDatas"></param>
-        [UsedImplicitly]
-        public static void OpenWebView( string url, Action<string> OnClosedWithDatas )
-        {
-            OpenWebView( url, null, OnClosedWithDatas );
-        }
-        
-        
-        private static void OpenWebView( string url, Action OnClosed, Action<string> OnData )
+        public static void OpenWebView( string url, Action<string> OnData = null )
         {
             Log( $"OpenWebView {url}" );
             
@@ -91,8 +58,7 @@ namespace com.binouze
 
             // init variables
             PopupClosed     = null;
-            PopupClosedWait = OnClosed;
-            PopupData       = OnData;
+            PopupClosedWait = OnData;
             HasWebView      = true;
             HasWebViewFocus = false;
             
@@ -120,13 +86,15 @@ namespace com.binouze
             
             PopupClosed     = null;
             PopupClosedWait = null;
-            PopupData       = null;
+            HasWebView      = false;
+            HasWebViewFocus = false;
+            DatasReceived   = null;
 
             #if UNITY_ANDROID && !UNITY_EDITOR
-            /*using( var cls = new AndroidJavaClass( AndroidClass ) ) 
+            using( var cls = new AndroidJavaClass( AndroidClass ) ) 
             {
                 cls.CallStatic( "CloseWebView" ); 
-            }*/
+            }
             #elif UNITY_IOS && !UNITY_EDITOR
             WK_closeFrame();
             #endif
@@ -174,9 +142,10 @@ namespace com.binouze
             var ok = WK_CanOpenURL( urlscheme );
             Log( $"CanOpenURL {urlscheme} -> {ok}" );
             return ok;
-            #endif
-            Log( $"CanOpenURL {urlscheme} -> NON" );
+            #else
+            Log( $"CanOpenURL {urlscheme} -> ONLY SUPPORTED ON IOS" );
             return false;
+            #endif
         }
         
         [UsedImplicitly]
@@ -186,18 +155,19 @@ namespace com.binouze
             OnApplicationFocus( true );
         }
 
+        private static string DatasReceived;
         [UsedImplicitly]
-        public void OnPopupData(string str)
+        public void OnPopupData( string str )
         {
             Log( $"OnPopupData {str}" );
-            var ondata = PopupData;
+            DatasReceived = str;
+            
             OnPopupClosed();
             
             #if UNITY_IOS && !UNITY_EDITOR
             WK_closeFrame();
             #endif
             
-            ondata?.Invoke(str);
         }
 
         private void OnApplicationFocus( bool hasFocus )
@@ -210,6 +180,7 @@ namespace com.binouze
                 HasWebViewFocus = true;
                 PopupClosed     = PopupClosedWait;
                 PopupClosedWait = null;
+                DatasReceived   = null;
             }
             else if( hasFocus && HasWebViewFocus )
             {
@@ -218,9 +189,10 @@ namespace com.binouze
                 HasWebView      = false;
                 HasWebViewFocus = false;
                 
-                PopupClosed?.Invoke();
-                PopupClosed = null;
-                PopupData   = null;
+                PopupClosed?.Invoke(DatasReceived);
+                PopupClosed     = null;
+                PopupClosedWait = null;
+                DatasReceived   = null;
             }
         }
 
