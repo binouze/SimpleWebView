@@ -27,7 +27,7 @@ public class SimpleWebView
         }
 	}
 	
-	public void CloseWebView()
+	public static void CloseWebView()
     {
         PackageManager pm = UnityPlayer.currentActivity.getPackageManager();
         Intent intent     = pm.getLaunchIntentForPackage(UnityPlayer.currentActivity.getPackageName());
