@@ -1,6 +1,7 @@
 package com.binouze;
 
 import android.content.pm.PackageManager;
+import 	android.content.pm.PackageManager.NameNotFoundException;
 import android.content.Intent;
 import android.content.ActivityNotFoundException;
 import android.net.Uri;
