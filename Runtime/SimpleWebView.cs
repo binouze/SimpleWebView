@@ -123,10 +123,10 @@ namespace com.binouze
             PopupData       = null;
 
             #if UNITY_ANDROID && !UNITY_EDITOR
-            using( var cls = new AndroidJavaClass( AndroidClass ) ) 
+            /*using( var cls = new AndroidJavaClass( AndroidClass ) ) 
             {
                 cls.CallStatic( "CloseWebView" ); 
-            }	
+            }*/
             #elif UNITY_IOS && !UNITY_EDITOR
             WK_closeFrame();
             #endif
