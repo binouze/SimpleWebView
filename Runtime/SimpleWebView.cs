@@ -77,8 +77,7 @@ namespace com.binouze
             SetInstance();
             
             // close any previous webview
-            if( HasWebView )
-                CloseWebView();
+            CloseWebView();
 
             // init variables
             PopupClosed     = null;
@@ -110,6 +109,8 @@ namespace com.binouze
         public static void CloseWebView(bool callGlobalHandler = false)
         {
             Log( $"CloseWebView HasWebView:{HasWebView} HasWebViewFocus:{HasWebViewFocus}" );
+
+            var hasWebview = HasWebView;
             
             PopupClosed     = null;
             PopupClosedWait = null;
@@ -120,6 +121,9 @@ namespace com.binouze
             // call the global handler if any and if needed
             if( callGlobalHandler )
                 OnIframeClose?.Invoke();
+
+            if( !hasWebview )
+                return;
             
             #if UNITY_ANDROID && !UNITY_EDITOR
             using( var cls = new AndroidJavaClass( AndroidClass ) ) 
