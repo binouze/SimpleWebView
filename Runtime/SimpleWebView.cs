@@ -10,6 +10,9 @@ namespace com.binouze
 {
     public class SimpleWebView : MonoBehaviour
     {
+        private static Action OnIframeOpen;
+        private static Action OnIframeClose;
+        
         private static  Action<string> PopupClosed;
         private static  Action<string> PopupClosedWait;
 
@@ -44,6 +47,27 @@ namespace com.binouze
             LogEnabled = enabled;
         }
 
+        
+        /// <summary>
+        /// set a global handler for webview open
+        /// </summary>
+        /// <param name="onOpen"></param>
+        [UsedImplicitly]
+        public static void OnWebViewOpen( Action onOpen )
+        {
+            OnIframeOpen = onOpen;
+        }
+        
+        /// <summary>
+        /// set a global handler for webview closed
+        /// </summary>
+        /// <param name="onClose"></param>
+        [UsedImplicitly]
+        public static void OnWebViewClosed( Action onClose )
+        {
+            OnIframeClose = onClose;
+        }
+        
         [UsedImplicitly]
         public static void OpenWebView( string url, Action<string> OnData = null )
         {
@@ -61,6 +85,9 @@ namespace com.binouze
             PopupClosedWait = OnData;
             HasWebView      = true;
             HasWebViewFocus = false;
+            
+            // call the global handler if any
+            OnIframeOpen?.Invoke();
             
             // show the webview
             #if UNITY_ANDROID && !UNITY_EDITOR
@@ -80,7 +107,7 @@ namespace com.binouze
         }
 
         [UsedImplicitly]
-        public static void CloseWebView()
+        public static void CloseWebView(bool callGlobalHandler = false)
         {
             Log( $"CloseWebView HasWebView:{HasWebView} HasWebViewFocus:{HasWebViewFocus}" );
             
@@ -90,6 +117,10 @@ namespace com.binouze
             HasWebViewFocus = false;
             DatasReceived   = null;
 
+            // call the global handler if any and if needed
+            if( callGlobalHandler )
+                OnIframeClose?.Invoke();
+            
             #if UNITY_ANDROID && !UNITY_EDITOR
             using( var cls = new AndroidJavaClass( AndroidClass ) ) 
             {
@@ -193,6 +224,9 @@ namespace com.binouze
                 PopupClosed     = null;
                 PopupClosedWait = null;
                 DatasReceived   = null;
+                
+                // call the global handler as the frame is closed
+                OnIframeClose?.Invoke();
             }
         }
 
