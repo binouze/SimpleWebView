@@ -29,16 +29,11 @@ public class SimpleWebView
 	
 	public void CloseWebView()
     {
-        try
-        {
-            PackageManager pm = UnityPlayer.currentActivity.getPackageManager();
-            Intent intent     = pm.getLaunchIntentForPackage(UnityPlayer.currentActivity.getPackageName());
+        PackageManager pm = UnityPlayer.currentActivity.getPackageManager();
+        Intent intent     = pm.getLaunchIntentForPackage(UnityPlayer.currentActivity.getPackageName());
+        
+        if( intent != null )
             UnityPlayer.currentActivity.startActivity(intent);
-        }
-        catch( NameNotFoundException  ignored )
-        {
-            
-        }
     }
 	
 	public static void LaunchApp( String packageName, String referrer )
