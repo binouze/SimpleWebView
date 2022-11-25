@@ -207,7 +207,7 @@ namespace com.binouze
             
         }
 
-        #if UNITY_ANDROID
+        #if UNITY_ANDROID || UNITY_EDITOR
         private void OnApplicationFocus( bool hasFocus )
         {
             OnApplicationFocused( hasFocus );
