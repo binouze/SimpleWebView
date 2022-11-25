@@ -89,7 +89,9 @@ namespace com.binouze
             OnIframeOpen?.Invoke();
             
             // show the webview
-            #if UNITY_ANDROID && !UNITY_EDITOR
+            #if UNITY_EDITOR
+            Application.OpenURL( url );
+            #elif UNITY_ANDROID
             using( var cls = new AndroidJavaClass( AndroidClass ) ) 
             {
                 var ok = cls.CallStatic<bool>( "OpenWebView", url );  
@@ -99,7 +101,7 @@ namespace com.binouze
                     Application.OpenURL( url );
                 }
             }	
-            #elif UNITY_IOS && !UNITY_EDITOR
+            #elif UNITY_IOS
             OnApplicationFocused( false );
             WK_openFrame(url);
             #endif
