@@ -5,7 +5,7 @@ using UnityEngine;
 
 namespace com.binouze.Editor
 {
-    public class SWVPostBuildScript : MonoBehaviour, IPostprocessBuildWithReport
+    public class SWVPostBuildScript : IPostprocessBuildWithReport
     {
         /// <summary>
         ///   <para>Returns the relative callback order for callbacks.  Callbacks with lower values are called before ones with higher values.</para>
