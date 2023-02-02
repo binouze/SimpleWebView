@@ -57,4 +57,21 @@ public class SimpleWebView
             UnityPlayer.currentActivity.startActivity(intent);
         }
     }
+    
+    public static Boolean LaunchAppIfInstalled( String packageName, String referrer )
+    {
+        Intent intent = UnityPlayer.currentActivity.getPackageManager().getLaunchIntentForPackage(packageName);
+        if( intent != null )
+        {
+            // Activity was found, launch new app
+            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            if( referrer != null )
+                intent.putExtra("lagoonxtra","lagoonxtra="+referrer);
+            UnityPlayer.currentActivity.startActivity(intent);
+            
+            return true;
+        }
+        
+        return false;
+    }
 }
