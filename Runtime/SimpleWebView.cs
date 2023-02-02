@@ -152,6 +152,23 @@ namespace com.binouze
         }
         
         [UsedImplicitly]
+        public static bool LaunchAppAndroidIfInstalled( string packageName, string referrer )
+        {
+            Log( $"LaunchApp {packageName} {referrer}" );
+            
+            SetInstance();
+            #if UNITY_ANDROID && !UNITY_EDITOR
+            using( var cls = new AndroidJavaClass( AndroidClass ) ) 
+            {
+                var ok = cls.CallStatic<bool>( "LaunchAppIfInstalled", packageName, referrer );  
+                return ok;
+            }
+            #endif
+
+            return false;
+        }
+        
+        [UsedImplicitly]
         public static void LaunchAppIOS( string urlscheme, string datas, string storeUrl )
         {
             Log( $"LaunchAppIOS {urlscheme} {datas} {storeUrl}" );
