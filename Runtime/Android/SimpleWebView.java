@@ -58,7 +58,7 @@ public class SimpleWebView
         }
     }
     
-    public static Boolean LaunchAppIfInstalled( String packageName, String referrer )
+    public static boolean LaunchAppIfInstalled( String packageName, String referrer )
     {
         Intent intent = UnityPlayer.currentActivity.getPackageManager().getLaunchIntentForPackage(packageName);
         if( intent != null )
