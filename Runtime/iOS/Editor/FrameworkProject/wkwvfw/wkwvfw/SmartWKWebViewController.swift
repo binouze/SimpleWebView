@@ -92,6 +92,23 @@ public class SmartWKWebViewController: PannableViewController, WKNavigationDeleg
         }
     }
     
+    // HANDLE BACK BUTTON
+    
+    private func majBackButtonState()
+    {
+        toolbar.backButton.isHidden = self.webView == nil || !self.webView.canGoBack
+    }
+    
+    @objc private func backTapped()
+    {
+        if self.webView != nil && self.webView.canGoBack {
+            print("Can go back")
+            self.webView.goBack()
+            //self.webView.reload()
+        } else {
+            print("Can't go back")
+        }
+    }
     
     // MARK: - View Lifecycle
     
@@ -115,6 +132,7 @@ public class SmartWKWebViewController: PannableViewController, WKNavigationDeleg
         toolbar = SmartWKWebViewToolbar.init(frame: CGRect(x: 0, y: topMargin, width: UIScreen.main.bounds.width, height: barHeight))
         view.addSubview(toolbar)
         toolbar.closeButton.addTarget(self, action: #selector(closeTapped), for: UIControl.Event.touchUpInside)
+        toolbar.backButton.addTarget(self, action: #selector(backTapped), for: UIControl.Event.touchUpInside)
     }
     
     func initWebView()
@@ -133,6 +151,7 @@ public class SmartWKWebViewController: PannableViewController, WKNavigationDeleg
         view.addSubview(webView)
         
         addThreeFingerSwipeGesture()
+        majBackButtonState()
     }
     
     public override func viewWillAppear(_ animated: Bool)
@@ -249,6 +268,8 @@ public class SmartWKWebViewController: PannableViewController, WKNavigationDeleg
         {
             decisionHandler(.cancel)
         }
+        
+        majBackButtonState()
     }
     
     public override func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey : Any]?, context: UnsafeMutableRawPointer?)
@@ -269,11 +290,14 @@ public class SmartWKWebViewController: PannableViewController, WKNavigationDeleg
         {
             print("WKWV:: urlChanged \(key)")
         }
+        
+        majBackButtonState()
     }
     
     public func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!)
     {
         toolbar.titleLabel.text = webView.title
+        majBackButtonState()
     }
     
     

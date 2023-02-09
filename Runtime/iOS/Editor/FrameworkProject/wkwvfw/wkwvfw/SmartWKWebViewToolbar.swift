@@ -21,6 +21,7 @@ class SmartWKWebViewToolbar: UIView
     @IBOutlet var titleLabel:          UILabel!
     @IBOutlet var addressLabel:        UILabel!
     @IBOutlet var closeButton:         UIButton!
+    @IBOutlet var backButton:          UIButton!
     
     public var progressView:           UIProgressView!
 
@@ -49,6 +50,7 @@ class SmartWKWebViewToolbar: UIView
         contentView.frame = self.bounds
      
         addProgressView()
+        backButton.isHidden = true;
     }
     
     func addProgressView()

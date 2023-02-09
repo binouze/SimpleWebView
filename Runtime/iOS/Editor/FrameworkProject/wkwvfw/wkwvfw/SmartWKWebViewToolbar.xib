@@ -1,43 +1,44 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="20037" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
-    <device id="retina3_5" orientation="portrait" appearance="light"/>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="21507" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+    <device id="retina6_12" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="20020"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21505"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="SmartWKWebViewToolbar" customModule="wkwvfw" customModuleProvider="target">
             <connections>
                 <outlet property="addressLabel" destination="ooS-Rc-qtz" id="Cpu-2h-pRn"/>
-                <outlet property="closeButton" destination="0vE-38-wOI" id="Ndx-xh-gj3"/>
+                <outlet property="backButton" destination="0vE-38-wOI" id="DL5-cm-66f"/>
+                <outlet property="closeButton" destination="5x7-ZA-Sxh" id="xbZ-7l-1ME"/>
                 <outlet property="contentView" destination="Tdn-Ir-MTA" id="eLW-gt-fmR"/>
                 <outlet property="titleLabel" destination="SQ0-xV-wYG" id="1dz-W1-2eT"/>
             </connections>
         </placeholder>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
         <view contentMode="scaleToFill" id="Tdn-Ir-MTA">
-            <rect key="frame" x="0.0" y="0.0" width="460" height="88"/>
+            <rect key="frame" x="0.0" y="0.0" width="426" height="87"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <subviews>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="XRs-ki-Ckc" userLabel="BottomBorder">
-                    <rect key="frame" x="0.0" y="87" width="460" height="1"/>
+                    <rect key="frame" x="0.0" y="86" width="426" height="1"/>
                     <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="1" id="gyo-VD-uRy"/>
                     </constraints>
                 </view>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="yHt-0j-Xr7">
-                    <rect key="frame" x="0.0" y="0.0" width="60" height="88"/>
+                    <rect key="frame" x="0.0" y="0.0" width="60" height="87"/>
                     <subviews>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0vE-38-wOI">
-                            <rect key="frame" x="0.0" y="22" width="44" height="44"/>
+                            <rect key="frame" x="0.0" y="21.666666666666671" width="44" height="44"/>
                             <constraints>
                                 <constraint firstAttribute="width" constant="44" id="CU4-Aq-onJ"/>
                                 <constraint firstAttribute="height" constant="44" id="l2E-Ke-3Nz"/>
                             </constraints>
                             <color key="tintColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
-                            <state key="normal" image="ic_close"/>
+                            <state key="normal" image="ic_back"/>
                         </button>
                     </subviews>
                     <constraints>
@@ -47,13 +48,13 @@
                     </constraints>
                 </view>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="0fy-rQ-suF" userLabel="Center">
-                    <rect key="frame" x="60" y="0.0" width="340" height="88"/>
+                    <rect key="frame" x="60" y="0.0" width="306" height="87"/>
                     <subviews>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="8af-4z-4xN" userLabel="Labels">
-                            <rect key="frame" x="0.0" y="29.5" width="340" height="29"/>
+                            <rect key="frame" x="0.0" y="29" width="306" height="29"/>
                             <subviews>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Title" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="SQ0-xV-wYG">
-                                    <rect key="frame" x="0.0" y="0.0" width="340" height="16"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="306" height="16"/>
                                     <constraints>
                                         <constraint firstAttribute="height" constant="16" id="3PN-G6-cC6"/>
                                     </constraints>
@@ -62,7 +63,7 @@
                                     <nil key="highlightedColor"/>
                                 </label>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="http://" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ooS-Rc-qtz">
-                                    <rect key="frame" x="0.0" y="16" width="340" height="13"/>
+                                    <rect key="frame" x="0.0" y="16" width="306" height="13"/>
                                     <constraints>
                                         <constraint firstAttribute="height" constant="13" id="MIa-JA-iJP"/>
                                     </constraints>
@@ -90,10 +91,23 @@
                     </constraints>
                 </view>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ZhL-fe-qaK">
-                    <rect key="frame" x="400" y="0.0" width="60" height="88"/>
+                    <rect key="frame" x="366" y="0.0" width="60" height="87"/>
+                    <subviews>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="5x7-ZA-Sxh">
+                            <rect key="frame" x="8" y="21.666666666666671" width="44" height="44"/>
+                            <constraints>
+                                <constraint firstAttribute="width" constant="44" id="HLJ-tZ-R0T"/>
+                                <constraint firstAttribute="height" constant="44" id="Vmu-B6-fQN"/>
+                            </constraints>
+                            <color key="tintColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                            <state key="normal" image="ic_close"/>
+                        </button>
+                    </subviews>
                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                     <constraints>
+                        <constraint firstItem="5x7-ZA-Sxh" firstAttribute="centerY" secondItem="ZhL-fe-qaK" secondAttribute="centerY" id="DfR-Y3-dUd"/>
                         <constraint firstAttribute="width" constant="60" id="NbS-pE-ji9"/>
+                        <constraint firstItem="5x7-ZA-Sxh" firstAttribute="leading" secondItem="ZhL-fe-qaK" secondAttribute="leadingMargin" id="ikv-uC-WLk"/>
                     </constraints>
                 </view>
             </subviews>
@@ -114,10 +128,11 @@
                 <constraint firstAttribute="bottom" secondItem="ZhL-fe-qaK" secondAttribute="bottom" id="yHT-nZ-3pB"/>
             </constraints>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
-            <point key="canvasLocation" x="-258" y="-329"/>
+            <point key="canvasLocation" x="-283.96946564885496" y="-329.92957746478874"/>
         </view>
     </objects>
     <resources>
+        <image name="ic_back" width="24" height="24"/>
         <image name="ic_close" width="24" height="24"/>
     </resources>
 </document>
