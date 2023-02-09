@@ -19,6 +19,8 @@ namespace com.binouze
         private static bool   LogEnabled;
         private static bool   HasWebView;
         private static bool   HasWebViewFocus;
+
+        public static bool ShowWebViewAsCards = true;
         
         #if UNITY_IOS
         [DllImport( "__Internal")]
@@ -71,7 +73,7 @@ namespace com.binouze
         [UsedImplicitly]
         public static void OpenWebView( string url, Action<string> OnData = null )
         {
-            Log( $"OpenWebView {url}" );
+            Log( $"OpenWebView {url} {ShowWebViewAsCards}" );
             
             // be sure to have an instance
             SetInstance();
@@ -94,7 +96,7 @@ namespace com.binouze
             #elif UNITY_ANDROID
             using( var cls = new AndroidJavaClass( AndroidClass ) ) 
             {
-                var ok = cls.CallStatic<bool>( "OpenWebView", url );  
+                var ok = cls.CallStatic<bool>( "OpenWebView", url, ShowWebViewAsCards );  
                 if( !ok )
                 {
                     Log( $"CutomTab not available, opening external browser" );
