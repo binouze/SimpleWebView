@@ -4,10 +4,6 @@
 <dict>
 	<key>files</key>
 	<dict>
-		<key>.DS_Store</key>
-		<data>
-		2WdY3QgMSqeA3XxYXrVVkUsofX4=
-		</data>
 		<key>Assets.car</key>
 		<data>
 		PLJmTlijB+yDnlCziy1Sg9OtEfE=
@@ -30,7 +26,7 @@
 		</data>
 		<key>Modules/wkwvfw.swiftmodule/Project/arm64-apple-ios.swiftsourceinfo</key>
 		<data>
-		5ksOPgw3bSEUMN63wfLtqPkMfas=
+		ls1vG7x11BjAGwDfeRiVDmMLQKk=
 		</data>
 		<key>Modules/wkwvfw.swiftmodule/arm64-apple-ios.abi.json</key>
 		<data>
@@ -46,7 +42,7 @@
 		</data>
 		<key>SmartWKWebViewToolbar.nib</key>
 		<data>
-		KIM1F06pK5uS/sDxAZkMEB/qjIM=
+		ejQkY2ezRdHxL8Zo54+O3mgWZ2w=
 		</data>
 	</dict>
 	<key>files2</key>
@@ -99,11 +95,11 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			5ksOPgw3bSEUMN63wfLtqPkMfas=
+			ls1vG7x11BjAGwDfeRiVDmMLQKk=
 			</data>
 			<key>hash2</key>
 			<data>
-			ZsJE/8IPQFLlpshYmUM051qz3fhRpuWKfHXHLZnZqL8=
+			ULULPUAgzPq2wT1xCecXaFgufcKwkavzvu9H4nVtHQI=
 			</data>
 		</dict>
 		<key>Modules/wkwvfw.swiftmodule/arm64-apple-ios.abi.json</key>
@@ -143,11 +139,11 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			KIM1F06pK5uS/sDxAZkMEB/qjIM=
+			ejQkY2ezRdHxL8Zo54+O3mgWZ2w=
 			</data>
 			<key>hash2</key>
 			<data>
-			MkS7I6lkW76Fwx0u8hgUMK6tfIaG2Sw32waz/edPZmQ=
+			BkTbJ9vomaoETZGqEfOEPeTu3gEwYR5o7beCXZTEdz8=
 			</data>
 		</dict>
 	</dict>
