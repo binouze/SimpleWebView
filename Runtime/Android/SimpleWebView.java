@@ -27,7 +27,7 @@ public class SimpleWebView
                 if( width > height )
                     height = width;
                 float density = displayMetrics.scaledDensity;
-                int calcHeight = (int)(height/density);
+                int calcHeight = (int)(height*density);
                 Log.d("SimpleWebView","SimpleWebView.OpenWebView as CardView -> displayMetric Height: "+height+" Width: "+width+" Density: "+density+" CalcHeight: "+calcHeight);
 
                 CustomTabsIntent customTabsIntent = new CustomTabsIntent.Builder()
