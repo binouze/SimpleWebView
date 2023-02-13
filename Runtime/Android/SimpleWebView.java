@@ -26,7 +26,7 @@ public class SimpleWebView
                 int width  = displayMetrics.widthPixels;
                 if( width > height )
                     height = width;
-                float density = displayMetrics.scaledDensity;
+                float density = displayMetrics.density;
                 int calcHeight = (int)(height*density);
                 Log.d("SimpleWebView","SimpleWebView.OpenWebView as CardView -> displayMetric Height: "+height+" Width: "+width+" Density: "+density+" CalcHeight: "+calcHeight);
 
