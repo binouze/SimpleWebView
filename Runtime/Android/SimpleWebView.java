@@ -26,11 +26,12 @@ public class SimpleWebView
                 int width  = displayMetrics.widthPixels;
                 if( width > height )
                     height = width;
-                    
-                Log.d("SimpleWebView","SimpleWebView.OpenWebView as CardView -> displayMetric Height: "+height+" Width: "+width);
+                float density = displayMetrics.scaledDensity;
+                int calcHeight = (int)(height/density);
+                Log.d("SimpleWebView","SimpleWebView.OpenWebView as CardView -> displayMetric Height: "+height+" Width: "+width+" Density: "+density+" CalcHeight: "+calcHeight);
 
                 CustomTabsIntent customTabsIntent = new CustomTabsIntent.Builder()
-                        .setInitialActivityHeightPx(height*5,CustomTabsIntent.ACTIVITY_HEIGHT_FIXED)
+                        .setInitialActivityHeightPx(calcHeight,CustomTabsIntent.ACTIVITY_HEIGHT_FIXED)
                         .setToolbarCornerRadiusDp(10)
                         .setShareState(CustomTabsIntent.SHARE_STATE_OFF)
                         .build();
