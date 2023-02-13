@@ -23,8 +23,11 @@ public class SimpleWebView
                         .getMetrics(displayMetrics);
 
                 int height = displayMetrics.heightPixels;
-
-                Log.i("SimpleWebView","SimpleWebView.OpenWebView as CardView -> displayMetric Height: "+height);
+                int width  = displayMetrics.widthPixels;
+                if( width > height )
+                    height = width;
+                    
+                Log.i("SimpleWebView","SimpleWebView.OpenWebView as CardView -> displayMetric Height: "+height+" Width: "+width);
 
                 CustomTabsIntent customTabsIntent = new CustomTabsIntent.Builder()
                         .setInitialActivityHeightPx(height,CustomTabsIntent.ACTIVITY_HEIGHT_FIXED)
