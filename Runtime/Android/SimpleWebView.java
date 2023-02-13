@@ -30,7 +30,7 @@ public class SimpleWebView
                 Log.i("SimpleWebView","SimpleWebView.OpenWebView as CardView -> displayMetric Height: "+height+" Width: "+width);
 
                 CustomTabsIntent customTabsIntent = new CustomTabsIntent.Builder()
-                        .setInitialActivityHeightPx(height,CustomTabsIntent.ACTIVITY_HEIGHT_FIXED)
+                        //.setInitialActivityHeightPx(height,CustomTabsIntent.ACTIVITY_HEIGHT_FIXED)
                         .setToolbarCornerRadiusDp(10)
                         .setShareState(CustomTabsIntent.SHARE_STATE_OFF)
                         .build();
