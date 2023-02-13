@@ -27,10 +27,10 @@ public class SimpleWebView
                 if( width > height )
                     height = width;
                     
-                Log.i("SimpleWebView","SimpleWebView.OpenWebView as CardView -> displayMetric Height: "+height+" Width: "+width);
+                Log.d("SimpleWebView","SimpleWebView.OpenWebView as CardView -> displayMetric Height: "+height+" Width: "+width);
 
                 CustomTabsIntent customTabsIntent = new CustomTabsIntent.Builder()
-                        //.setInitialActivityHeightPx(height,CustomTabsIntent.ACTIVITY_HEIGHT_FIXED)
+                        .setInitialActivityHeightPx(height*5,CustomTabsIntent.ACTIVITY_HEIGHT_FIXED)
                         .setToolbarCornerRadiusDp(10)
                         .setShareState(CustomTabsIntent.SHARE_STATE_OFF)
                         .build();
@@ -42,7 +42,7 @@ public class SimpleWebView
             }
             else
             {
-                Log.i("SimpleWebView","SimpleWebView.OpenWebView Normal");
+                Log.d("SimpleWebView","SimpleWebView.OpenWebView Normal");
 
                 CustomTabsIntent customTabsIntent = new CustomTabsIntent.Builder().build();
                 customTabsIntent.intent.addFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
@@ -59,7 +59,7 @@ public class SimpleWebView
 
     public static void CloseWebView()
     {
-        Log.i("SimpleWebView","SimpleWebView.CloseWebView");
+        Log.d("SimpleWebView","SimpleWebView.CloseWebView");
 
 
         PackageManager pm = UnityPlayer.currentActivity.getPackageManager();
@@ -67,7 +67,7 @@ public class SimpleWebView
 
         if( intent != null )
         {
-            Log.i("SimpleWebView","SimpleWebView.CloseWebView -> CLOSED ?");
+            Log.d("SimpleWebView","SimpleWebView.CloseWebView -> CLOSED ?");
             UnityPlayer.currentActivity.startActivity(intent);
         }
     }
