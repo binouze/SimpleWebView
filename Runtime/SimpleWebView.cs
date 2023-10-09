@@ -70,12 +70,54 @@ namespace com.binouze
         {
             OnIframeClose = onClose;
         }
-        
+
+        [UsedImplicitly]
+        public static void OpenWebView( string url, Action<string> OnData, bool showAsCardView, bool autoCloaseOnRefocus )
+        {
+            Log( $"OpenWebViewWithParams {url} {showAsCardView} {autoCloaseOnRefocus} " );
+            
+            // be sure to have an instance
+            SetInstance();
+            
+            // close any previous webview
+            CloseWebView();
+
+            // init variables
+            PopupClosed     = null;
+            PopupClosedWait = OnData;
+            HasWebView      = true;
+            HasWebViewFocus = false;
+            
+            // call the global handler if any
+            OnIframeOpen?.Invoke();
+            
+            // show the webview
+            #if UNITY_EDITOR
+            Application.OpenURL( url );
+            #elif UNITY_ANDROID
+            using( var cls = new AndroidJavaClass( AndroidClass ) ) 
+            {
+                var ok = cls.CallStatic<bool>( "OpenWebView", url, showAsCardView, autoCloaseOnRefocus );  
+                if( !ok )
+                {
+                    Log( $"CutomTab not available, opening external browser" );
+                    Application.OpenURL( url );
+                }
+            }	
+            #elif UNITY_IOS
+            OnApplicationFocused( false );
+            WK_openFrame(url);
+            #endif
+        }
+
         [UsedImplicitly]
         public static void OpenWebView( string url, Action<string> OnData = null )
         {
-            Log( $"OpenWebView {url} {ShowWebViewAsCards}" );
+            Log( $"OpenWebView {url}" );
+
+            OpenWebView( url, OnData, ShowWebViewAsCards, AutoCloseWebViewOnAppRefocus );
             
+            /*
             // be sure to have an instance
             SetInstance();
             
@@ -108,6 +150,7 @@ namespace com.binouze
             OnApplicationFocused( false );
             WK_openFrame(url);
             #endif
+            */
         }
 
         [UsedImplicitly]
