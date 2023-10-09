@@ -10,7 +10,7 @@ import android.util.Log;
 
 public class SimpleWebView
 {
-    public static boolean OpenWebView( String url, boolean cardView )
+    public static boolean OpenWebView( String url, boolean cardView, boolean autoCloseOnRefocus )
     {
         try
         {
@@ -33,10 +33,16 @@ public class SimpleWebView
                 CustomTabsIntent customTabsIntent = new CustomTabsIntent.Builder()
                         .setInitialActivityHeightPx(calcHeight,CustomTabsIntent.ACTIVITY_HEIGHT_FIXED)
                         .setToolbarCornerRadiusDp(10)
+                        .setUrlBarHidingEnabled(true)
+                        .setShowTitle(true)
                         .setShareState(CustomTabsIntent.SHARE_STATE_OFF)
                         .build();
 
-                customTabsIntent.intent.addFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
+                if( autoCloseOnRefocus )
+                {
+                    customTabsIntent.intent.addFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
+                }
+                    
                 customTabsIntent.intent.setData( Uri.parse(url) );
 
                 UnityPlayer.currentActivity.startActivityForResult(customTabsIntent.intent, 1);
@@ -45,8 +51,17 @@ public class SimpleWebView
             {
                 Log.d("SimpleWebView","SimpleWebView.OpenWebView Normal");
 
-                CustomTabsIntent customTabsIntent = new CustomTabsIntent.Builder().build();
-                customTabsIntent.intent.addFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
+                CustomTabsIntent customTabsIntent = new CustomTabsIntent.Builder()
+                        .setUrlBarHidingEnabled(true)
+                        .setShowTitle(true)
+                        .setShareState(CustomTabsIntent.SHARE_STATE_OFF)
+                        .build();
+                
+                if( autoCloseOnRefocus )
+                {
+                    customTabsIntent.intent.addFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
+                }
+                    
                 customTabsIntent.launchUrl( UnityPlayer.currentActivity, Uri.parse(url) );
             }
         }

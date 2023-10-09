@@ -21,6 +21,7 @@ namespace com.binouze
         private static bool   HasWebViewFocus;
 
         public static bool ShowWebViewAsCards = true;
+        public static bool AutoCloseWebViewOnAppRefocus = true;
         
         #if UNITY_IOS
         [DllImport( "__Internal")]
@@ -96,7 +97,7 @@ namespace com.binouze
             #elif UNITY_ANDROID
             using( var cls = new AndroidJavaClass( AndroidClass ) ) 
             {
-                var ok = cls.CallStatic<bool>( "OpenWebView", url, ShowWebViewAsCards );  
+                var ok = cls.CallStatic<bool>( "OpenWebView", url, ShowWebViewAsCards, AutoCloseWebViewOnAppRefocus );  
                 if( !ok )
                 {
                     Log( $"CutomTab not available, opening external browser" );
