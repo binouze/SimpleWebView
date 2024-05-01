@@ -5,16 +5,20 @@ import UIKit
 
     @objc public static var curWV : SmartWKWebViewController?;
     
-    @objc public func openWkWv( unityviewcontroller : UIViewController, url : String, dismisseddelegate:SmartWKWebViewControllerDelegateDissmissed )
+    @objc public func openWkWv( unityviewcontroller:UIViewController, url:String, dismisseddelegate:SmartWKWebViewControllerDelegateDissmissed, openBlankInsideWebview:Bool = true )
     {
         // fermer les WV precedentes au cas ou
         //SmartWK.closeWkWv()
         
         // ouvrir la nouvelle WV
         let vc = SmartWKWebViewController()
-        vc.url = URL(string: url)
-        vc.ondismiss = dismisseddelegate;
+        
+        vc.openBlankInWebView = openBlankInsideWebview
+        vc.url                = URL(string: url)
+        vc.ondismiss          = dismisseddelegate;
+        
         unityviewcontroller.present(vc, animated: true)
+        
         SmartWK.curWV = vc;
     }
     

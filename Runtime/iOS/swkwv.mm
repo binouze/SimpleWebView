@@ -13,7 +13,7 @@
 #import <WebKit/WebKit.h>
 
 @interface swkwv : NSObject <SmartWKWebViewControllerDelegateDissmissed>
-- (void)openURL:(NSString*) url;
+- (void)openURL:(NSString*)url openBlankInsideWebview:(Boolean)openBlankInsideWebview;
 @end
 
 @implementation swkwv
@@ -26,10 +26,13 @@
     const char* url = (const char*) [str UTF8String];
     UnitySendMessage("_Extern_WebViewLight", "OnPopupData", url);
 }
-- (void)openURL:(NSString*) url
+- (void)openURL:(NSString*)url 
+openBlankInsideWebview:(Boolean)openBlankInsideWebview
 {
     SmartWK *myClass = [[SmartWK alloc] init];
-    [myClass openWkWvWithUnityviewcontroller:UnityGetGLViewController() url:url dismisseddelegate:self];
+    [myClass openWkWvWithUnityviewcontroller:UnityGetGLViewController() 
+                                         url:url dismisseddelegate:self
+                      openBlankInsideWebview:openBlankInsideWebview];
 }
 @end
 
@@ -45,14 +48,15 @@ extern "C"
         [SmartWK setDatasSchemesFromBundleWithBundle:NSBundle.mainBundle];
     }
 
-    void WK_openFrame(const char *curl)
+    void WK_openFrame(const char *curl, bool openBlankInsideWebview)
     {
         if( isInit != TRUE )
             init();
         
         swkwv *myClass = [[swkwv alloc] init];
         NSString* url = [NSString stringWithCString:curl encoding:NSUTF8StringEncoding];
-        [myClass openURL:url];
+        [myClass openURL:url 
+  openBlankInsideWebview:openBlankInsideWebview];
     }
 
     void WK_closeFrame()

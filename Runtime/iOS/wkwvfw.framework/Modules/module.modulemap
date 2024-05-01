@@ -1,7 +1,7 @@
 framework module wkwvfw {
   umbrella header "wkwvfw.h"
-
   export *
+
   module * { export * }
 }
 

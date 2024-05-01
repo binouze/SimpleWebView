@@ -13,6 +13,7 @@ public class SmartWKWebViewController: PannableViewController, WKNavigationDeleg
 {
     
     public static var dataschemes:[String] = ["wkwv"]
+    public var openBlankInWebView = true
     
     // MARK: - Public Variables
     
@@ -232,10 +233,30 @@ public class SmartWKWebViewController: PannableViewController, WKNavigationDeleg
     
     public func webView(_ webView: WKWebView, createWebViewWith configuration: WKWebViewConfiguration, for navigationAction: WKNavigationAction, windowFeatures: WKWindowFeatures) -> WKWebView?
     {
-        if navigationAction.targetFrame == nil {
-            print("redirecting _blank to main frame")
-            webView.load(navigationAction.request)
+        // savoir si la vue doit gérer les _blank en interne ou en externe
+        
+        if( self.openBlankInWebView )
+        {
+            // en interne
+            if navigationAction.targetFrame == nil {
+                print("redirecting _blank to main frame")
+                webView.load(navigationAction.request)
+            }
         }
+        else
+        {
+            if( UIApplication.shared.canOpenURL(navigationAction.request.url!) )
+            {
+                UIApplication.shared.open(navigationAction.request.url!, options: [:], completionHandler: nil)
+            }
+            
+            // en externe (default browser)
+            /*if UIApplication.shared.canOpenURL(navigationAction.request.URL!) {
+                UIApplication.shared.openURL(navigationAction.request.URL!)
+            }*/
+        }
+        
+        // non supporté
         return nil
     }
     

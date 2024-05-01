@@ -25,7 +25,7 @@ namespace com.binouze
         
         #if UNITY_IOS
         [DllImport( "__Internal")]
-        private static extern void WK_openFrame(string url);
+        private static extern void WK_openFrame(string url,bool openBlankInWebview);
         [DllImport( "__Internal")]
         private static extern void WK_closeFrame();
         [DllImport( "__Internal")]
@@ -72,9 +72,9 @@ namespace com.binouze
         }
 
         [UsedImplicitly]
-        public static void OpenWebView( string url, Action<string> OnData, bool showAsCardView, bool autoCloaseOnRefocus )
+        public static void OpenWebView( string url, Action<string> OnData, bool showAsCardView, bool autoCloseOnRefocus, bool openBlankInWebview = true )
         {
-            Log( $"OpenWebViewWithParams {url} {showAsCardView} {autoCloaseOnRefocus} " );
+            Log( $"OpenWebViewWithParams {url} {showAsCardView} {autoCloseOnRefocus} " );
             
             // be sure to have an instance
             SetInstance();
@@ -97,7 +97,7 @@ namespace com.binouze
             #elif UNITY_ANDROID
             using( var cls = new AndroidJavaClass( AndroidClass ) ) 
             {
-                var ok = cls.CallStatic<bool>( "OpenWebView", url, showAsCardView, autoCloaseOnRefocus );  
+                var ok = cls.CallStatic<bool>( "OpenWebView", url, showAsCardView, autoCloseOnRefocus );  
                 if( !ok )
                 {
                     Log( $"CutomTab not available, opening external browser" );
@@ -106,16 +106,16 @@ namespace com.binouze
             }	
             #elif UNITY_IOS
             OnApplicationFocused( false );
-            WK_openFrame(url);
+            WK_openFrame(url,openBlankInWebview);
             #endif
         }
 
         [UsedImplicitly]
-        public static void OpenWebView( string url, Action<string> OnData = null )
+        public static void OpenWebView( string url, Action<string> OnData = null, bool openBlankInWebview = true )
         {
             Log( $"OpenWebView {url}" );
 
-            OpenWebView( url, OnData, ShowWebViewAsCards, AutoCloseWebViewOnAppRefocus );
+            OpenWebView( url, OnData, ShowWebViewAsCards, AutoCloseWebViewOnAppRefocus, openBlankInWebview );
             
             /*
             // be sure to have an instance
