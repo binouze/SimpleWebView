@@ -268,9 +268,8 @@ public class SmartWKWebViewController: PannableViewController, WKNavigationDeleg
         
         // if datascheme is supported by the app redirect the datas to the app
         if( SmartWKWebViewController.dataschemes.contains(navigationAction.request.url?.scheme ?? "") )
-        //if( navigationAction.request.url?.scheme == datascheme )
         {
-            print("WKWV:: host \(navigationAction.request.url?.scheme ?? "") sending data")
+            print("WKWV:: host \(navigationAction.request.url?.scheme ?? "") sending data \(navigationAction.request.url?.absoluteString ?? "") ")
             
             ondismiss?.ondata(str: navigationAction.request.url?.absoluteString ?? "")
             decisionHandler(.cancel)
@@ -280,10 +279,12 @@ public class SmartWKWebViewController: PannableViewController, WKNavigationDeleg
         {
             decisionHandler(.allow)
             
-            toolbar.titleLabel.text   = stringLoading
-            toolbar.addressLabel.text = navigationAction.request.url?.host ?? ""
-            //UIApplication.shared.open( navigationAction.request.url! )
-            //dismiss()
+            // get the address only for main frame navigation
+            if( navigationAction.targetFrame?.isMainFrame == true )
+            {
+                toolbar.titleLabel.text   = stringLoading
+                toolbar.addressLabel.text = navigationAction.request.url?.host ?? ""
+            }
         }
         else
         {
@@ -316,7 +317,7 @@ public class SmartWKWebViewController: PannableViewController, WKNavigationDeleg
     }
     
     public func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!)
-    {
+    {        
         toolbar.titleLabel.text = webView.title
         majBackButtonState()
     }
