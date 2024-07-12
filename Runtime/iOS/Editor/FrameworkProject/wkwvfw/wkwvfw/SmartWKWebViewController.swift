@@ -36,7 +36,7 @@ public class SmartWKWebViewController: PannableViewController, WKNavigationDeleg
         return v;
     } ()
     
-    private var isDraggingEnabled = true
+    private var isDraggingEnabled = false
     
     
     // MARK: - Initialization
@@ -327,15 +327,15 @@ public class SmartWKWebViewController: PannableViewController, WKNavigationDeleg
     
     public func scrollViewDidScroll(_ scrollView: UIScrollView)
     {
-        if (scrollView.contentOffset.y == 0 && scrollView.panGestureRecognizer.velocity(in: view).y == 0)
+        /*if (scrollView.contentOffset.y == 0 && scrollView.panGestureRecognizer.velocity(in: view).y == 0)
         {
             isDraggingEnabled = true
-        }
+        }*/
     }
     
     @objc func panGestureActionWebView(_ panGesture: UIPanGestureRecognizer)
     {
-        if panGesture.translation(in: self.view).y < 0
+        /*if panGesture.translation(in: self.view).y < 0
         {
             isDraggingEnabled = false
         }
@@ -344,7 +344,7 @@ public class SmartWKWebViewController: PannableViewController, WKNavigationDeleg
         {
             panGestureAction(panGesture)
             webView.scrollView.contentOffset.y = 0
-        }
+        }*/
     }
 }
 

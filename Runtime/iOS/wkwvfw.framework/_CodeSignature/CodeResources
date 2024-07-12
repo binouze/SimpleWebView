@@ -4,13 +4,9 @@
 <dict>
 	<key>files</key>
 	<dict>
-		<key>.DS_Store</key>
-		<data>
-		GetztyX6YmJS84VKB9c6Tn3ggPo=
-		</data>
 		<key>Assets.car</key>
 		<data>
-		PW4RkdjqGzRajwBful73GcJEhc4=
+		9bvtcsNvQVFjl6wzmrATFiYkCTI=
 		</data>
 		<key>Headers/wkwvfw-Swift.h</key>
 		<data>
@@ -22,7 +18,7 @@
 		</data>
 		<key>Info.plist</key>
 		<data>
-		VJuaVIj8loqfPrt5TIzR5v8Ws0g=
+		tsOd/2Sw3zRE7hutxsbzuLJNSlM=
 		</data>
 		<key>Modules/module.modulemap</key>
 		<data>
@@ -30,7 +26,7 @@
 		</data>
 		<key>Modules/wkwvfw.swiftmodule/Project/arm64-apple-ios.swiftsourceinfo</key>
 		<data>
-		JwBMjXS8fik7eiqy4Y6/IOyJOaw=
+		+Bjz6nzrDSQWKGtQIzmFDRUovvU=
 		</data>
 		<key>Modules/wkwvfw.swiftmodule/arm64-apple-ios.abi.json</key>
 		<data>
@@ -42,7 +38,7 @@
 		</data>
 		<key>Modules/wkwvfw.swiftmodule/arm64-apple-ios.swiftmodule</key>
 		<data>
-		pXbcWgV1W7bE4qeJ21kXA6AvQNE=
+		+BpuYT+8UR8dT9tf59r1b+hdT84=
 		</data>
 		<key>SmartWKWebViewToolbar.nib</key>
 		<data>
@@ -55,11 +51,11 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			PW4RkdjqGzRajwBful73GcJEhc4=
+			9bvtcsNvQVFjl6wzmrATFiYkCTI=
 			</data>
 			<key>hash2</key>
 			<data>
-			lAj2c3OlMomiJ2j6Re17MXxtvHup33YTS2IW3AcHTFw=
+			Lj9lH4/4JXqqvBFxROg0HetU7+MjIDo8qL8ehaz7YkQ=
 			</data>
 		</dict>
 		<key>Headers/wkwvfw-Swift.h</key>
@@ -99,11 +95,11 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			JwBMjXS8fik7eiqy4Y6/IOyJOaw=
+			+Bjz6nzrDSQWKGtQIzmFDRUovvU=
 			</data>
 			<key>hash2</key>
 			<data>
-			pX02QbGtrqnPmPocpRFWAtBmknMTLX7LbIij29sAWIw=
+			rcOw9H8K/Lc+1u/DFUDtx7r7TbZ9ky72KCxoIVV3m1c=
 			</data>
 		</dict>
 		<key>Modules/wkwvfw.swiftmodule/arm64-apple-ios.abi.json</key>
@@ -132,11 +128,11 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			pXbcWgV1W7bE4qeJ21kXA6AvQNE=
+			+BpuYT+8UR8dT9tf59r1b+hdT84=
 			</data>
 			<key>hash2</key>
 			<data>
-			Yf3xWwFCawGyLw5WelRDmnmdum9jYh3w/79V6ctQP+Y=
+			leZH9iC5uvXP+Ar7Zvw4B9CDCtZEabIguzRRWyk7tWw=
 			</data>
 		</dict>
 		<key>SmartWKWebViewToolbar.nib</key>
