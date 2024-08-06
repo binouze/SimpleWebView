@@ -322,7 +322,7 @@ SWIFT_CLASS("_TtC6wkwvfw7SmartWK")
 SWIFT_CLASS_PROPERTY(@property (nonatomic, class, strong) SmartWKWebViewController * _Nullable curWV;)
 + (SmartWKWebViewController * _Nullable)curWV SWIFT_WARN_UNUSED_RESULT;
 + (void)setCurWV:(SmartWKWebViewController * _Nullable)value;
-- (void)openWkWvWithUnityviewcontroller:(UIViewController * _Nonnull)unityviewcontroller url:(NSString * _Nonnull)url dismisseddelegate:(id <SmartWKWebViewControllerDelegateDissmissed> _Nonnull)dismisseddelegate openBlankInsideWebview:(BOOL)openBlankInsideWebview;
+- (void)openWkWvWithUnityviewcontroller:(UIViewController * _Nonnull)unityviewcontroller url:(NSString * _Nonnull)url dismisseddelegate:(id <SmartWKWebViewControllerDelegateDissmissed> _Nonnull)dismisseddelegate openBlankInsideWebview:(BOOL)openBlankInsideWebview showNavigationButtons:(BOOL)showNavigationButtons;
 + (void)setDatasSchemesFromBundleWithBundle:(NSBundle * _Nonnull)bundle;
 + (void)closeWkWv;
 - (nonnull instancetype)init OBJC_DESIGNATED_INITIALIZER;

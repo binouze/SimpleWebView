@@ -16,16 +16,22 @@ namespace com.binouze
         private static  Action<string> PopupClosed;
         private static  Action<string> PopupClosedWait;
 
-        private static bool   LogEnabled;
-        private static bool   HasWebView;
-        private static bool   HasWebViewFocus;
+        private static bool LogEnabled;
+        public static  bool HasWebView { get; private set; }
+        private static bool HasWebViewFocus;
 
+        /// <summary>
+        /// (Android Only) if true, webview will be shown as cards
+        /// </summary>
         public static bool ShowWebViewAsCards = true;
+        /// <summary>
+        /// if true, the webviews will be closed if the app is put to background then re-focused
+        /// </summary>
         public static bool AutoCloseWebViewOnAppRefocus = true;
         
         #if UNITY_IOS
         [DllImport( "__Internal")]
-        private static extern void WK_openFrame(string url,bool openBlankInWebview);
+        private static extern void WK_openFrame(string url,bool openBlankInWebview,bool showNavigationButtons);
         [DllImport( "__Internal")]
         private static extern void WK_closeFrame();
         [DllImport( "__Internal")]
@@ -72,7 +78,7 @@ namespace com.binouze
         }
 
         [UsedImplicitly]
-        public static void OpenWebView( string url, Action<string> OnData, bool showAsCardView, bool autoCloseOnRefocus, bool openBlankInWebview = true )
+        public static void OpenWebView( string url, Action<string> OnData, bool showAsCardView, bool autoCloseOnRefocus, bool openBlankInWebview, bool showNavigationButtons )
         {
             Log( $"OpenWebViewWithParams {url} {showAsCardView} {autoCloseOnRefocus} " );
             
@@ -106,16 +112,16 @@ namespace com.binouze
             }	
             #elif UNITY_IOS
             OnApplicationFocused( false );
-            WK_openFrame(url,openBlankInWebview);
+            WK_openFrame(url,openBlankInWebview,showNavigationButtons);
             #endif
         }
 
         [UsedImplicitly]
-        public static void OpenWebView( string url, Action<string> OnData = null, bool openBlankInWebview = true )
+        public static void OpenWebView( string url, Action<string> OnData = null, bool openBlankInWebview = true, bool showNavigationButtons = true )
         {
             Log( $"OpenWebView {url}" );
 
-            OpenWebView( url, OnData, ShowWebViewAsCards, AutoCloseWebViewOnAppRefocus, openBlankInWebview );
+            OpenWebView( url, OnData, ShowWebViewAsCards, AutoCloseWebViewOnAppRefocus, openBlankInWebview,showNavigationButtons );
             
             /*
             // be sure to have an instance

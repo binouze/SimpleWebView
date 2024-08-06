@@ -13,7 +13,7 @@
 #import <WebKit/WebKit.h>
 
 @interface swkwv : NSObject <SmartWKWebViewControllerDelegateDissmissed>
-- (void)openURL:(NSString*)url openBlankInsideWebview:(Boolean)openBlankInsideWebview;
+- (void)openURL:(NSString*)url openBlankInsideWebview:(Boolean)openBlankInsideWebview showNavigationButtons:(Boolean)showNavigationButtons;
 @end
 
 @implementation swkwv
@@ -28,11 +28,13 @@
 }
 - (void)openURL:(NSString*)url 
 openBlankInsideWebview:(Boolean)openBlankInsideWebview
+showNavigationButtons:(Boolean)showNavigationButtons
 {
     SmartWK *myClass = [[SmartWK alloc] init];
     [myClass openWkWvWithUnityviewcontroller:UnityGetGLViewController() 
                                          url:url dismisseddelegate:self
-                      openBlankInsideWebview:openBlankInsideWebview];
+                      openBlankInsideWebview:openBlankInsideWebview
+                       showNavigationButtons:showNavigationButtons];
 }
 @end
 
@@ -48,7 +50,7 @@ extern "C"
         [SmartWK setDatasSchemesFromBundleWithBundle:NSBundle.mainBundle];
     }
 
-    void WK_openFrame(const char *curl, bool openBlankInsideWebview)
+    void WK_openFrame(const char *curl, bool openBlankInsideWebview, bool showNavigationButtons)
     {
         if( isInit != TRUE )
             init();
@@ -56,7 +58,8 @@ extern "C"
         swkwv *myClass = [[swkwv alloc] init];
         NSString* url = [NSString stringWithCString:curl encoding:NSUTF8StringEncoding];
         [myClass openURL:url 
-  openBlankInsideWebview:openBlankInsideWebview];
+  openBlankInsideWebview:openBlankInsideWebview
+   showNavigationButtons:showNavigationButtons];
     }
 
     void WK_closeFrame()

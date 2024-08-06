@@ -5,7 +5,7 @@ import UIKit
 
     @objc public static var curWV : SmartWKWebViewController?;
     
-    @objc public func openWkWv( unityviewcontroller:UIViewController, url:String, dismisseddelegate:SmartWKWebViewControllerDelegateDissmissed, openBlankInsideWebview:Bool = true )
+    @objc public func openWkWv( unityviewcontroller:UIViewController, url:String, dismisseddelegate:SmartWKWebViewControllerDelegateDissmissed, openBlankInsideWebview:Bool = true, showNavigationButtons:Bool = true )
     {
         // fermer les WV precedentes au cas ou
         //SmartWK.closeWkWv()
@@ -13,9 +13,10 @@ import UIKit
         // ouvrir la nouvelle WV
         let vc = SmartWKWebViewController()
         
-        vc.openBlankInWebView = openBlankInsideWebview
-        vc.url                = URL(string: url)
-        vc.ondismiss          = dismisseddelegate;
+        vc.openBlankInWebView    = openBlankInsideWebview
+        vc.showNavigationButtons = showNavigationButtons
+        vc.url                   = URL(string: url)
+        vc.ondismiss             = dismisseddelegate;
         
         unityviewcontroller.present(vc, animated: true)
         

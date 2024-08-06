@@ -14,6 +14,7 @@ public class SmartWKWebViewController: PannableViewController, WKNavigationDeleg
     
     public static var dataschemes:[String] = ["wkwv"]
     public var openBlankInWebView = true
+    public var showNavigationButtons = true
     
     // MARK: - Public Variables
     
@@ -97,7 +98,7 @@ public class SmartWKWebViewController: PannableViewController, WKNavigationDeleg
     
     private func majBackButtonState()
     {
-        toolbar.backButton.isHidden = self.webView == nil || !self.webView.canGoBack
+        toolbar.backButton.isHidden = self.webView == nil || !self.showNavigationButtons || !self.webView.canGoBack
     }
     
     @objc private func backTapped()
