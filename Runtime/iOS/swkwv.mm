@@ -6,11 +6,15 @@
 #error ARC must be enabled by adding -fobjc-arc under your target => Build Phases => Compile Sources => UnityDeeplinks.mm => Compiler Flags
 #endif
 
+// UIKit et WebKit AVANT le header Swift genere : en Objective-C++ sans modules, ses @import sont ignores
+// et il ne declare pas lui-meme les types UIKit / WebKit qu'il utilise
+#import <UIKit/UIKit.h>
+#import <WebKit/WebKit.h>
 #import "swkwv.h"
-#import "wkwvfw/wkwvfw-Swift.h"
+// les sources Swift sont compilees dans la cible UnityFramework : Xcode genere ce header
+#import <UnityFramework/UnityFramework-Swift.h>
 #import <UnityAppController.h>
 #import "UnityInterface.h"
-#import <WebKit/WebKit.h>
 
 @interface swkwv : NSObject <SmartWKWebViewControllerDelegateDissmissed>
 - (void)openURL:(NSString*)url openBlankInsideWebview:(Boolean)openBlankInsideWebview showNavigationButtons:(Boolean)showNavigationButtons;
@@ -65,6 +69,11 @@ extern "C"
     void WK_closeFrame()
     {
         [SmartWK closeWkWv];
+    }
+    
+    void WK_setInspectable(bool inspectable)
+    {
+        [SmartWK setInspectableWithInspectable:inspectable];
     }
     
     BOOL WK_CanOpenURL(const char* url)

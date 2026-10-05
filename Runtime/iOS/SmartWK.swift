@@ -40,6 +40,12 @@ import UIKit
     {
         curWV?.forceDismiss();
     }
+
+    // rend les prochaines webviews inspectables depuis Safari (iOS 16.4+, sans effet avant)
+    @objc public static func setInspectable(inspectable:Bool)
+    {
+        SmartWKWebViewController.inspectable = inspectable
+    }
     
     static func getExternalURLSchemes(bundle:Bundle) -> [String] {
         guard let urlTypes = bundle.infoDictionary?["CFBundleURLTypes"] as? [[String: Any]] else {

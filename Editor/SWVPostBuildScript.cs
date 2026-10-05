@@ -1,7 +1,11 @@
 using System.IO;
+using UnityEditor;
 using UnityEditor.Build;
 using UnityEditor.Build.Reporting;
 using UnityEngine;
+#if UNITY_IOS
+using UnityEditor.iOS.Xcode;
+#endif
 
 namespace com.binouze.Editor
 {
@@ -19,6 +23,8 @@ namespace com.binouze.Editor
         public void OnPostprocessBuild( BuildReport report )
         {
             #if UNITY_IOS
+            if( report.summary.platform != BuildTarget.iOS )
+                return;
             
             // -- ADD USE WEBKIT FOR WEBVIEWS
 
@@ -29,6 +35,20 @@ namespace com.binouze.Editor
                 pch = pch.Replace( "#import <UIKit/UIKit.h>", "#import <UIKit/UIKit.h>\n\t#import <WebKit/WebKit.h>" );
                 File.WriteAllText( pchloc, pch );
             }
+            
+            // -- SOURCES SWIFT COMPILEES DANS UNITYFRAMEWORK
+            
+            // Unity copie les .swift du plugin dans la cible UnityFramework. Il leur faut une version de
+            // Swift, et un module defini pour que Xcode genere UnityFramework-Swift.h, importe par swkwv.mm
+            var projPath = PBXProject.GetPBXProjectPath( report.summary.outputPath );
+            var proj     = new PBXProject();
+            proj.ReadFromFile( projPath );
+            
+            var cible = proj.GetUnityFrameworkTargetGuid();
+            proj.SetBuildProperty( cible, "SWIFT_VERSION",  "5.0" );
+            proj.SetBuildProperty( cible, "DEFINES_MODULE", "YES" );
+            
+            proj.WriteToFile( projPath );
             
             #endif
         }

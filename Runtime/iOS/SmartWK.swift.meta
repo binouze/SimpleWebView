@@ -1,6 +1,5 @@
 fileFormatVersion: 2
-guid: d90624814675473ca2bc2560722bce39
-folderAsset: yes
+guid: 94b7be32d97846448b85c96ea9056fd3
 PluginImporter:
   externalObjects: {}
   serializedVersion: 2
@@ -72,7 +71,7 @@ PluginImporter:
     second:
       enabled: 1
       settings:
-        AddToEmbeddedBinaries: true
+        AddToEmbeddedBinaries: false
         CPU: AnyCPU
         CompileFlags: 
         FrameworkDependencies: 

@@ -36,6 +36,8 @@ namespace com.binouze
         private static extern void WK_closeFrame();
         [DllImport( "__Internal")]
         private static extern bool WK_CanOpenURL(string url);
+        [DllImport( "__Internal")]
+        private static extern void WK_setInspectable(bool inspectable);
         #elif UNITY_ANDROID
         private const string AndroidClass = "com.binouze.SimpleWebView";
         #endif
@@ -54,6 +56,21 @@ namespace com.binouze
         public static void SetDebugLogging( bool enabled )
         {
             LogEnabled = enabled;
+        }
+
+        /// <summary>
+        /// (iOS 16.4+ uniquement) si true, les prochaines webviews ouvertes sont inspectables depuis
+        /// Safari (menu Développement > appareil). Sans effet sur une webview déjà ouverte.
+        /// </summary>
+        /// <param name="inspectable"></param>
+        [UsedImplicitly]
+        public static void SetInspectable( bool inspectable )
+        {
+            Log( $"SetInspectable {inspectable}" );
+
+            #if UNITY_IOS && !UNITY_EDITOR
+            WK_setInspectable( inspectable );
+            #endif
         }
 
         

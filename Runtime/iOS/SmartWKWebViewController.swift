@@ -13,6 +13,8 @@ public class SmartWKWebViewController: PannableViewController, WKNavigationDeleg
 {
     
     public static var dataschemes:[String] = ["wkwv"]
+    // webviews inspectables depuis Safari (menu Developpement), lu a la creation de la webview
+    public static var inspectable = false
     public var openBlankInWebView = true
     public var showNavigationButtons = true
     
@@ -34,6 +36,16 @@ public class SmartWKWebViewController: PannableViewController, WKNavigationDeleg
     {
         let v = UIView(frame: CGRect.zero)
         v.backgroundColor = UIColor.black
+        return v;
+    } ()
+    
+    // loader natif, place SOUS la webview : tant que la page n'a rien peint, la webview transparente
+    // le laisse voir sur le fond noir ; des que la page peint son fond, elle le recouvre d'elle-meme
+    private var loader: UIActivityIndicatorView =
+    {
+        let v = UIActivityIndicatorView(style: .large)
+        v.color            = UIColor.white
+        v.hidesWhenStopped = true
         return v;
     } ()
     
@@ -124,6 +136,8 @@ public class SmartWKWebViewController: PannableViewController, WKNavigationDeleg
         super.viewDidLoad()
         view.backgroundColor = .clear
         view.addSubview(self.backgroundBlackOverlay)
+        // entre le fond noir et la webview (ajoutee par initWebView), donc dessous
+        view.addSubview(self.loader)
         initToolbar()
         initWebView()
         view.addObserver(self, forKeyPath: #keyPath(UIView.frame), options: .new, context: nil)
@@ -140,7 +154,17 @@ public class SmartWKWebViewController: PannableViewController, WKNavigationDeleg
     func initWebView()
     {
         webView = WKWebView(frame: CGRect.zero)
-        webView.backgroundColor = .white
+        // transparente tant que la page n'a rien peint : on voit le fond noir et le loader dessous.
+        // Opaque blanche, elle affichait du blanc pendant l'attente du serveur et des CSS bloquantes,
+        // et tant que WebKit juge la page « visuellement vide ». Redevient opaque blanche en fin de
+        // chargement (cf. finChargement)
+        webView.isOpaque = false
+        webView.backgroundColor = .clear
+        webView.scrollView.backgroundColor = .clear
+        if #available(iOS 16.4, *)
+        {
+            webView.isInspectable = SmartWKWebViewController.inspectable
+        }
         webView.navigationDelegate = self
         webView.uiDelegate = self
         webView.scrollView.delegate = self
@@ -179,6 +203,7 @@ public class SmartWKWebViewController: PannableViewController, WKNavigationDeleg
         if let URL = url
         {
             let urlRequest = URLRequest.init(url: URL)
+            loader.startAnimating()
             webView.load(urlRequest)
         }
     }
@@ -190,6 +215,8 @@ public class SmartWKWebViewController: PannableViewController, WKNavigationDeleg
         webView.frame = CGRect(x: 0, y: barHeight + topMargin,
                                width: UIScreen.main.bounds.width,
                                height: UIScreen.main.bounds.height - barHeight - topMargin)
+        
+        loader.center = CGPoint(x: webView.frame.midX, y: webView.frame.midY)
         
         backgroundBlackOverlay.frame = CGRect(x: 0,
                                               y: -UIScreen.main.bounds.height,
@@ -321,6 +348,39 @@ public class SmartWKWebViewController: PannableViewController, WKNavigationDeleg
     {        
         toolbar.titleLabel.text = webView.title
         majBackButtonState()
+        finChargement()
+    }
+    
+    public func webView(_ webView: WKWebView, didFail navigation: WKNavigation!, withError error: Error)
+    {
+        print("WKWV:: didFail \(error)")
+        finChargement(error)
+    }
+    
+    public func webView(_ webView: WKWebView, didFailProvisionalNavigation navigation: WKNavigation!, withError error: Error)
+    {
+        print("WKWV:: didFailProvisionalNavigation \(error)")
+        finChargement(error)
+    }
+    
+    // fin du chargement, reussi ou non : arret du loader (il resterait visible derriere une page a fond
+    // transparent) et retour a la webview opaque blanche d'avant. La transparence ne sert qu'a laisser
+    // voir le loader tant que la page n'a rien peint : gardee, une page sans fond CSS s'afficherait en
+    // noir sur noir. Sans effet visible sur une page qui peint son propre fond.
+    private func finChargement(_ erreur: Error? = nil)
+    {
+        // navigation annulee parce qu'une autre prend le relais (redirection JS, nouveau load) :
+        // le chargement continue, on garde le loader
+        if let e = erreur as NSError?, e.domain == NSURLErrorDomain, e.code == NSURLErrorCancelled
+        {
+            return
+        }
+    
+        loader.stopAnimating()
+        webView.isOpaque = true
+        webView.backgroundColor = .white
+        // nil rend la main a WebKit, qui gere seul la couleur du scrollView quand il n'est pas force
+        webView.scrollView.backgroundColor = nil
     }
     
     

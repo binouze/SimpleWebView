@@ -4,6 +4,8 @@ Simple WebView to use in Unity projects on iOS and Android
 
 - on Android the plugin uses the CustomTabsIntent, as it is the most simple implementation of webviews for Android.
 - on iOS the plugin uses a modified version of [Baris Atamer's SmartWKWebView](https://github.com/barisatamer/SmartWKWebView).
+  Its Swift sources are compiled by Xcode inside the `UnityFramework` target (no prebuilt framework):
+  the iOS post-build step sets `SWIFT_VERSION` and `DEFINES_MODULE` on that target.
 
 ## Installation
 
@@ -66,6 +68,14 @@ this repository and put it in the `Assets/Plugins` folder of your project.
     private void CloseWebview()
     {
         SimpleWebView.CloseWebView();
+    }
+    
+    // iOS 16.4+ only: let the next webviews be inspected from Safari (Develop menu > device),
+    // for example in development builds only
+    private void EnableWebInspector()
+    {
+        if( Debug.isDebugBuild )
+            SimpleWebView.SetInspectable( true );
     }
     
 ```
