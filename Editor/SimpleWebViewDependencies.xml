@@ -1,5 +1,5 @@
 <dependencies>
   <androidPackages>
-    <androidPackage spec="androidx.browser:browser:1.5.+"/>
+    <androidPackage spec="androidx.browser:browser:1.10.0"/>
   </androidPackages>
 </dependencies>
